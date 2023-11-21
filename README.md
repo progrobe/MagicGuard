@@ -48,7 +48,7 @@ cd MagicGuard/magic_guard4_physical/
 python run.py --MagicGuard True
 ```
 
-An examplary script for enhancing a watermarked model with MagicGuard is provided in `MagicGuard/magic_guard3_imagenet/convert.py`. By setting the flag`--mode [neuron/layers]`, MagicGuard will be injected in neuron level or layer level. To change the activation function of MagicGuard, add the flag`--selected_func [0/1/2]`. 
+An examplary script for enhancing a watermarked model with MagicGuard is provided in `MagicGuard/magic_guard3_imagenet/convert.py`. By setting the flag`--mode [neuron/layer]`, MagicGuard will be injected in neuron level or layer level. To change the activation function of MagicGuard, add the flag`--selected_func [0/1/2]`. 
 ```bash
 cd MagicGuard/magic_guard3_imagenet/
 python convert.py --mode neuron --selected_func 0
