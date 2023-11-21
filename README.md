@@ -1,14 +1,6 @@
 ## To Destruct, or Not to Destruct: Defending Watermark Removal Attacks on DNN Models via Self-destruction
 This repository is an implementation of MagicGuard which is proposed in the paper "To Destruct, or Not to Destruct: Defending Watermark Removal Attacks on DNN Models via Self-destruction". In this repository, we demonstrate how we enhance pre-trained models with MagicGuard. The code is tested on two real world tasks, including image classification and face recognition. Three popular datasets are employed, including ImageNet, CIFAR100 and CelebA. 
 
-
-## Introduction to MagicGuard
-Recent studies have shown that existing DNN watermarking schemes are not robust as the watermarks could be easily removed when model fine-tuning is involved. As a counter measure, MagicGuard works as a safeguard that protects the model from fine-tuning attack. It introduces proprietary neurons with obfuscated activation function to mask the gradient in backpropagation and further prevent the gradient convergence. When the model is protected by MagicGuard, its functionality of benign sample prediction will be destroyed when model fine-tuning is involved at any magnitudes. In extreme cases, the adversaries obtained full knowledge of the training dataset and had the access to fine-tune all layers, MagicGuard could still protect the model successfully. 
-
-The following figures show the comparison of loss landscapes between a raw model without protection (left) and the same model enhanced by our MagicGuard (right). An illustration of the optimization process is also shown in the upper right of the corresponding figure. 
-
-<div align=center><img src="https://github.com/progrobe/MagicGuard/assets/67232034/991aaf06-97c4-4e1e-8ebc-d4361112e7d1"  width="700px" /></div>
-
 ## Dependency
 
 The required packages include:
@@ -18,6 +10,13 @@ tensorflow=1.14.0
 numpy=1.21.5
 imageio=2.16
 ```
+
+## Introduction to MagicGuard
+Recent studies have shown that existing DNN watermarking schemes are not robust as the watermarks could be easily removed when model fine-tuning is involved. As a counter measure, MagicGuard works as a safeguard that protects the model from fine-tuning attack. It introduces proprietary neurons with obfuscated activation function to mask the gradient in backpropagation and further prevent the gradient convergence. When the model is protected by MagicGuard, its functionality of benign sample prediction will be destroyed when model fine-tuning is involved at any magnitudes. In extreme cases, the adversaries obtained full knowledge of the training dataset and had the access to fine-tune all layers, MagicGuard could still protect the model successfully. 
+
+The following figures show the comparison of loss landscapes between a raw model without protection (left) and the same model enhanced by our MagicGuard (right). An illustration of the optimization process is also shown in the upper right of the corresponding figure. 
+
+<div align=center><img src="https://github.com/progrobe/MagicGuard/assets/67232034/991aaf06-97c4-4e1e-8ebc-d4361112e7d1"  width="700px" /></div>
 
 ## How to use
 
