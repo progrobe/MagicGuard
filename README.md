@@ -7,7 +7,7 @@ Recent studies have shown that existing DNN watermarking schemes are not robust 
 
 The following figures show the comparison of loss landscapes between a raw model without protection (left) and the same model enhanced by our MagicGuard (right). An illustration of the optimization process is also shown in the upper right of the corresponding figure. 
 
-![image](https://github.com/progrobe/MagicGuard/assets/67232034/4a741a4d-f953-4ba7-9785-b1e421561db0)
+![image](https://github.com/progrobe/MagicGuard/assets/67232034/991aaf06-97c4-4e1e-8ebc-d4361112e7d1)
 
 ## Requirement
 
@@ -56,3 +56,12 @@ python convert.py --mode neuron --selected_func 0
 ```
 
 There are a number of arguments that could be used to set the hyperparameters. The interpretation and configuration of these hyperparameters are explained in our paper.
+
+## Results
+The following image shows the differences between the raw model without any protection and the same model enhanced by MagicGuard in predicting benign samples and verification samples when suffering model fine-tuning. In the raw model without any protection (left), the watermarks could be easily removed while the functionality of benign sample prediction is well preserved. In the model enhanced by our MagicGuard (right), the functionality of both benign sample and verification sample prediction are all destroyed.
+![image](https://github.com/progrobe/MagicGuard/assets/67232034/d68bceb1-ac17-47fc-ba72-488b0ae1a573)
+
+
+The following image shows the accuracy drop of benign sample prediction when injecting MagicGuard in layer level (left) and neuron level (right). The immediate drop when suffering from fine-tuning attack demonstrates the effectiveness of MagicGuard.
+![image](https://github.com/progrobe/MagicGuard/assets/67232034/ce8398e2-4d95-4daf-a70f-fb1d6c758958)
+
