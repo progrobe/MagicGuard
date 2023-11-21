@@ -3,7 +3,11 @@ This repository is an Pytorch implementation of MagicGuard which is proposed in 
 
 
 ## Introduction to MagicGuard
-Recent studies have shown that existing DNN watermarking schemes are not robust as the watermarks could be easily removed when model fine-tuning is involved. As a counter measure, MagicGuard  protects the model from fine-tuning attack. It introduces proprietary neurons with obfuscated activation function to mask the gradient in backpropagation and further prevent the gradient convergence. It could completely destroy the functionality of benign sample prediction when model fine-tuning is involved at any magnitudes, even if the adversaries obtained full knowledge of the training dataset with all layers fine-tuned.
+Recent studies have shown that existing DNN watermarking schemes are not robust as the watermarks could be easily removed when model fine-tuning is involved. As a counter measure, MagicGuard works as a safeguard that protects the model from fine-tuning attack. It introduces proprietary neurons with obfuscated activation function to mask the gradient in backpropagation and further prevent the gradient convergence. When the model is protected by MagicGuard, its functionality of benign sample prediction will be destroyed when model fine-tuning is involved at any magnitudes. In extreme cases, the adversaries obtained full knowledge of the training dataset and had the access to fine-tune all layers, MagicGuard could still protect the model successfully. 
+
+The following figures show the comparison of loss landscapes between a raw model without protection (left) and the same model enhanced by our MagicGuard (right). An illustration of the optimization process is also shown in the upper right of the corresponding figure. 
+
+![image](https://github.com/progrobe/MagicGuard/assets/67232034/4a741a4d-f953-4ba7-9785-b1e421561db0)
 
 ## Requirement
 
