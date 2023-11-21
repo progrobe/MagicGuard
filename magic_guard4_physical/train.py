@@ -71,6 +71,8 @@ def parse_args():
     parser.add_argument('--inject_rate', default=0.25, type=float, help='how much poison data to use')
     parser.add_argument('--test_perc', default=0.15, type=float)
     parser.add_argument('--batch_size', default=16, type=int)
+    # updated: 11.21
+    parser.add_argument('--MagicGuard', default=False, type=bool)
     return parser.parse_args()
 
 def get_model(model, num_classes, method='top', shape=(320,320,1)):
@@ -189,40 +191,41 @@ def embed(args):
     clean_validation_datagen = datagen.flow(x_train, y_train,
                                       batch_size=args.batch_size,
                                       subset='validation')
-    print("\n------------------fine tune begins---------------------\n")
-    args.epochs = 50
-    for e in range(args.epochs):
+    if args.MagicGuard == False:
+        print("\n------------------fine tune begins---------------------\n")
+        args.epochs = 50
+        for e in range(args.epochs):
+            tscl, test_clean_acc = model.evaluate(np.array(x_test), np.array(y_test), verbose=1)
+            tstl, test_trig_acc = model.evaluate(np.array(x_poison_test), np.array(y_poison_test), verbose=1)
+            print('test,wm:', test_clean_acc, test_trig_acc)
+    
+            model.fit(clean_train_datagen,
+                                        steps_per_epoch=(x_train.shape[0] // args.batch_size),
+                                        validation_data=clean_validation_datagen,
+                                        validation_steps=(x_train.shape[0] // args.batch_size),
+                                        epochs=1, verbose=1)
+    
         tscl, test_clean_acc = model.evaluate(np.array(x_test), np.array(y_test), verbose=1)
         tstl, test_trig_acc = model.evaluate(np.array(x_poison_test), np.array(y_poison_test), verbose=1)
         print('test,wm:', test_clean_acc, test_trig_acc)
-
-        model.fit(clean_train_datagen,
-                                    steps_per_epoch=(x_train.shape[0] // args.batch_size),
-                                    validation_data=clean_validation_datagen,
-                                    validation_steps=(x_train.shape[0] // args.batch_size),
-                                    epochs=1, verbose=1)
-
-    tscl, test_clean_acc = model.evaluate(np.array(x_test), np.array(y_test), verbose=1)
-    tstl, test_trig_acc = model.evaluate(np.array(x_poison_test), np.array(y_poison_test), verbose=1)
-    print('test,wm:', test_clean_acc, test_trig_acc)
-
-    # print("\n------------------sin fine tune begins---------------------\n")
-    # args.epochs = 10
-    # sin_model = get_model('vgg_sin', len(y_train[0]), shape=shape)
-    # for e in range(args.epochs):
-    #     tscl, test_clean_acc = sin_model.evaluate(np.array(x_test), np.array(y_test), verbose=1)
-    #     tstl, test_trig_acc = sin_model.evaluate(np.array(x_poison_test), np.array(y_poison_test), verbose=1)
-    #     print('sin--test,wm:', test_clean_acc, test_trig_acc)
-
-    #     sin_model.fit(clean_train_datagen,
-    #                                 steps_per_epoch=(x_train.shape[0] // args.batch_size),
-    #                                 validation_data=clean_validation_datagen,
-    #                                 validation_steps=(x_train.shape[0] // args.batch_size),
-    #                                 epochs=1, verbose=1)
-
-    # tscl, test_clean_acc = sin_model.evaluate(np.array(x_test), np.array(y_test), verbose=1)
-    # tstl, test_trig_acc = sin_model.evaluate(np.array(x_poison_test), np.array(y_poison_test), verbose=1)
-    # print('sin--test,wm:', test_clean_acc, test_trig_acc)
+    else:
+        print("\n------------------sin fine tune begins---------------------\n")
+        args.epochs = 10
+        sin_model = get_model('vgg_sin', len(y_train[0]), shape=shape)
+        for e in range(args.epochs):
+            tscl, test_clean_acc = sin_model.evaluate(np.array(x_test), np.array(y_test), verbose=1)
+            tstl, test_trig_acc = sin_model.evaluate(np.array(x_poison_test), np.array(y_poison_test), verbose=1)
+            print('sin--test,wm:', test_clean_acc, test_trig_acc)
+    
+            sin_model.fit(clean_train_datagen,
+                                        steps_per_epoch=(x_train.shape[0] // args.batch_size),
+                                        validation_data=clean_validation_datagen,
+                                        validation_steps=(x_train.shape[0] // args.batch_size),
+                                        epochs=1, verbose=1)
+    
+        tscl, test_clean_acc = sin_model.evaluate(np.array(x_test), np.array(y_test), verbose=1)
+        tstl, test_trig_acc = sin_model.evaluate(np.array(x_poison_test), np.array(y_poison_test), verbose=1)
+        print('sin-test,wm:', test_clean_acc, test_trig_acc)
 
 
 def finetune(args):
