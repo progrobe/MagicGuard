@@ -16,7 +16,7 @@ def parse_args():
 
 def convert(args):
     mode = args.mode
-    if mode == 'layers':
+    if mode == 'layer':
         for i in range(6):
             sin_layer = i + 1
             # e = ''
