@@ -1,5 +1,5 @@
 ## To Destruct, or Not to Destruct: Defending Watermark Removal Attacks on DNN Models via Self-destruction
-This repository is an implementation of MagicGuard which is proposed in the paper "To Destruct, or Not to Destruct: Defending Watermark Removal Attacks on DNN Models via Self-destruction". In this repository, we demonstrate how we enhance pre-trained models with MagicGuard. The code is tested on two real world tasks, including image classification and face recognition. Three popular datasets are employed, including ImageNet, CIFAR100 and CelebA. 
+This repository is an implementation of the paper "To Destruct, or Not to Destruct: Defending Watermark Removal Attacks on DNN Models via Self-destruction". In this repository, we demonstrate how we enhance pre-trained models with MagicGuard. The code is tested on two real world tasks, including image classification and face recognition. Three popular datasets are employed, including ImageNet, CIFAR100 and CelebA. 
 
 ## Dependency
 
